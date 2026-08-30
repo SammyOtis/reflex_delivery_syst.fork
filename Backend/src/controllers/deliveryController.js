@@ -3,13 +3,25 @@ const User = require('../models/User');
 
 const createDelivery = async (req, res) => {
 	try {
-		const { customerName, customerPhone, deliveryAddress, itemDescription, productCategory } = req.body;
-		const delivery = await Delivery.create({
+		const {
 			customerName,
 			customerPhone,
 			deliveryAddress,
 			itemDescription,
+			productDescription,
 			productCategory,
+			notes
+		} = req.body;
+
+		const finalItemDescription = itemDescription || productDescription;
+
+		const delivery = await Delivery.create({
+			customerName,
+			customerPhone,
+			deliveryAddress,
+			itemDescription: finalItemDescription,
+			productCategory,
+			notes: notes || '',
 			createdBy: req.user.id
 		});
 		res.status(201).json({ success: true, data: delivery });

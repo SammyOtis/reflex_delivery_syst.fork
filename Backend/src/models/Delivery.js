@@ -26,6 +26,11 @@ const deliverySchema = new mongoose.Schema(
 			minlength: [2, 'Item description must be at least 2 characters'],
 			trim: true
 		},
+		notes: {
+			type: String,
+			trim: true,
+			default: ''
+		},
 		createdBy: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
