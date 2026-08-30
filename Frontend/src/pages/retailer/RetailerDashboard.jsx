@@ -124,14 +124,13 @@ const RetailerDashboard = () => {
     }
   };
 
-  const totalDeliveries = deliveries.length;
-
   const requested = deliveries.filter(
     (delivery) => delivery.status === "Requested"
   ).length;
 
   const inTransit = deliveries.filter(
     (delivery) =>
+      delivery.status === "Requested" ||
       delivery.status === "Assigned" ||
       delivery.status === "Picked Up"
   ).length;
@@ -139,6 +138,8 @@ const RetailerDashboard = () => {
   const delivered = deliveries.filter(
     (delivery) => delivery.status === "Delivered"
   ).length;
+
+  const totalDeliveries = deliveries.length;
 
   return (
     <div className="dashboard">
