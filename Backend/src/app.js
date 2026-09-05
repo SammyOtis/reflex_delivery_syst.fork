@@ -6,8 +6,10 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 
 app.use(cors({
-	origin: ['https://reflex-delivery-syst-fork-e6t7.vercel.app/'],
+	origin: ['https://reflex-delivery-syst-fork-e6t7.vercel.app'],
 	credentials: true,
+	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use('/api/auth', authRoutes);
