@@ -13,7 +13,6 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps, curl, Postman)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -23,14 +22,11 @@ const corsOptions = {
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  optionsSuccessStatus: 200 // Legacy browsers / proxies choke on 204
+  optionsSuccessStatus: 200
 };
 
-// 1. Enable CORS pre-flight across all routes
+// Apply CORS middleware globally (handles standard requests and preflight OPTIONS automatically)
 app.use(cors(corsOptions));
-
-// 2. Explicitly intercept and respond to OPTIONS requests immediately
-app.options('*', cors(corsOptions));
 
 app.use(express.json());
 app.use('/api/auth', authRoutes);
